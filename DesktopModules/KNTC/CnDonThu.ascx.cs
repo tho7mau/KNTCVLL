@@ -99,6 +99,8 @@ namespace KNTC
                     LoadDanhSach(1, vPageSize);
                     LoadBSModal();
                     EnableSoNguoi(vDonThuId);
+                    btn_ThemNguoiDaiDien.Visible = false;
+                    textSoNguoiDaiDien.Enabled = false;
                     //textTenThietBi.Focus();
                     if (ddlistHuongXuLy.SelectedValue == "")
                     {
