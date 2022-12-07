@@ -9,7 +9,6 @@ using DotNetNuke.Entities.Users;
 using System;
 using System.Collections.Generic;
 using System.Data;
-using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Web;
@@ -127,10 +126,6 @@ namespace KNTC
             string vToastrMessage = "Vui lòng ";
             string vToastrMessagePassword = "";
             string oErrorMessage = "";
-            string format = "dd/MM/yyyy";
-            int returnval;
-
-            DateTime dateTime;
             if (txtNgayTiepDan.Text == "")
             {
                 txtNgayTiepDan.CssClass += " vld";
@@ -139,26 +134,11 @@ namespace KNTC
                 vToastrMessage += "nhập Ngày tiếp dân, ";
                 vResult = false;
             }
-            else if (DateTime.TryParseExact(txtNgayTiepDan.Text, format, CultureInfo.InvariantCulture, DateTimeStyles.None, out dateTime) == false)
-            {
-                ClassCommon.ShowToastr(Page, "Vui lòng nhập đúng định dạng ngày", "Thông báo", "error");
-            }
             else
             {
                 txtNgayTiepDan.CssClass = txtNgayTiepDan.CssClass.Replace("vld", "").Trim();
                 lbltxtNgayTiepDan.Attributes.Add("class", lbltxtNgayTiepDan.Attributes["class"].ToString().Replace("vld", ""));
 
-            }
-
-            if (txtLanTiep.Text == "")
-            {
-                txtLanTiep.CssClass += " vld";
-                txtLanTiep.Focus();
-                vToastrMessage += "nhập Lần tiếp, ";
-                vResult = false;
-            }else if (int.TryParse(txtLanTiep.Text, out returnval) == false)
-            {
-                ClassCommon.ShowToastr(Page, "Lần tiếp phải là kiểu số", "Thông báo", "error");
             }
             foreach (var item in ListViewDoiTuong.Items)
             {
@@ -718,7 +698,7 @@ namespace KNTC
             txtLanTiep.Enabled = pEnableStatus;
             txtTenCoQuanToChuc.Enabled = pEnableStatus;
             txtDiaChiDoiTuong.Enabled = pEnableStatus;
-            
+
             //txtSoNguoi.Enabled = pEnableStatus;
             if (drpDOITUONG.SelectedValue != "1")
             {
@@ -871,7 +851,7 @@ namespace KNTC
                     {
                         TIEPDANInfo.TIEPDAN_STT = 1;
                     }
-                    
+
 
                     TIEPDANInfo.TIEPDAN_LANTIEP = Int32.Parse(txtLanTiep.Text.Trim());
                     // Đối tượng
@@ -2077,29 +2057,20 @@ namespace KNTC
             DropDownList drlQuocTich = ((DropDownList)listViewDataItem_CaNhan.FindControl("drlQuocTich"));
             DropDownList drlDanToc = ((DropDownList)listViewDataItem_CaNhan.FindControl("drlDanToc"));
             CANHAN objCANHAN = new CANHAN();
-            objCANHAN.CANHAN_CMDN = txtCMND.Text;
             objCANHAN.CANHAN_ID = Int32.Parse(txtCaNhanID.Text);
             objCANHAN.CANHAN_HOTEN = txtHoTen.Text;
             //objCANHAN.lan = Int32.Parse(txtLanTiep.Text);
-            string format = "dd/MM/yyyy";
-            DateTime dateTime;
-
-
-            if (txtNgayCap.Text != "" && DateTime.TryParseExact(txtNgayCap.Text, format, CultureInfo.InvariantCulture, DateTimeStyles.None, out dateTime) == false)
-            {
-                ClassCommon.ShowToastr(Page, "Vui lòng nhập đúng định dạng ngày", "Thông báo", "error");
-            }
-           
+            objCANHAN.CANHAN_CMDN = txtCMND.Text;
             if (txtNgayCap.Text != "")
             {
                 objCANHAN.CANHAN_CMDN_NGAYCAP = DateTime.Parse(txtNgayCap.Text);
-            }           
-            else if (txtNgayCap.Text == "")
+            }
+            else
             {
                 objCANHAN.CANHAN_CMDN_NGAYCAP = null;
             }
 
-                objCANHAN.CANHAN_NOICAP = txtNoiCap.Text;
+            objCANHAN.CANHAN_NOICAP = txtNoiCap.Text;
             objCANHAN.CANHAN_DIACHI = txtDiaChi.Text;
             objCANHAN.CANHAN_GIOITINH = !rdoNam.Checked;
             if (pDropDownListXa.SelectedValue != "" && pDropDownListXa.SelectedValue != "-1")

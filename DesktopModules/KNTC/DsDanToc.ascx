@@ -59,13 +59,13 @@
                                             </div>
                                         </nav>
                                     </div>
-                                 <%-- <div class="card-list-type">
+                                    <div class="card-list-type">
                                         <div class="btn-group">
                                             <button type="button" class="btn btn-default btn-sm btn-flat"><i class="fa fa-th-large" aria-hidden="true"></i></button>
                                             <button type="button" class="btn btn-default btn-sm btn-flat active "><i class="fa fa-list" aria-hidden="true"></i></button>
                                             <button type="button" class="btn btn-default btn-sm btn-flat"><i class="fa fa-th" aria-hidden="true"></i></button>
                                         </div>
-                                    </div>--%>
+                                    </div>
                                     <div class="card-pagination">
                                         <div class="btn-group tool-right pagination-group">
                                             <span class="pagination-title">

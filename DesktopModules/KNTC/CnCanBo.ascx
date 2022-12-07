@@ -79,7 +79,7 @@
                                                 <div class="form-group row">
                                                     <label class="col-lg-3 col-form-label" runat="server" id="labelSoDienThoai">Số điện thoại</label>
                                                     <div class="col-lg-9">
-                                                        <asp:TextBox ID="textSoDienThoai" runat="server" data-mask  data-inputmask="'mask':'[9][9][9][9][9][9][9][9][9][9][9][9]'" inputmode="numeric" CssClass="form-control float-left" MaxLength="200" autocomplete="off" />
+                                                        <asp:TextBox ID="textSoDienThoai" runat="server" CssClass="form-control float-left" MaxLength="200" />
                                                     </div>
                                                 </div>
                                                 <div class="form-group row">
@@ -177,7 +177,6 @@
                         })
 
                     }
-                    $('[data-mask]').inputmask();
                     function isNumberKey(evt) {
                         var charCode = (evt.which) ? evt.which : evt.keyCode;
                         if (charCode > 31 && (charCode < 48 || charCode > 57))
