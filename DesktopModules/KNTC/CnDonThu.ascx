@@ -482,14 +482,13 @@
                 </div>
                 <!-- /.container-fluid -->
                 <div class="form-tools">
+                    <asp:LinkButton ID="btnSua" Visible="true" OnClick="btnSua_Click" CausesValidation="true" runat="server" CssClass="btn bg-gradient-primary btn-flat tool-left"><i class="icofont-ui-edit"></i>  Sửa</asp:LinkButton>
                     <asp:LinkButton ID="buttonThemmoi" OnClick="btn_ThemMoi_Click" runat="server" CssClass="btn  bg-gradient-primary btn-flat tool-left"><i class="icofont-plus"></i>  Thêm</asp:LinkButton>
                     <asp:LinkButton ID="btnCapNhat" Visible="false" runat="server" OnClick="btnCapNhat_Click" CausesValidation="false" CssClass="btn bg-gradient-primary btn-flat tool-left"><i class="icofont-save"></i> Lưu</asp:LinkButton>
-                    <asp:LinkButton ID="btnSua" Visible="true" OnClick="btnSua_Click" CausesValidation="true" runat="server" CssClass="btn bg-gradient-primary btn-flat tool-left"><i class="icofont-ui-edit"></i>  Sửa</asp:LinkButton>
                     <asp:LinkButton ID="btnNhanBan" runat="server" CssClass="btn bg-gradient-primary btn-flat tool-left" CausesValidation="false" OnClick="btnNhanBan_Click"><i class="icofont-plus"></i> Nhân bản</asp:LinkButton>
                     <asp:LinkButton ID="btnGiaiQuyetDon" runat="server" CssClass="btn bg-gradient-primary btn-flat tool-left" CausesValidation="false" OnClick="btnGiaiQuyetDon_Click"><i class="icofont-law-document"></i> Giải quyết đơn</asp:LinkButton>
                     <asp:LinkButton ID="btn_XuatPhieu" Visible="false" runat="server" OnClick="btn_XuatPhieu_Click" CssClass="btn btn-default btn-flat tool-left text-primary"><i class="icofont-file-word"></i> Xuất phiếu </asp:LinkButton>
                     <asp:LinkButton ID="btn_XuatBienNhan" Visible="false" runat="server" OnClick="btn_XuatBienNhan_Click" CssClass="btn btn-default btn-flat tool-left text-primary"><i class="icofont-file-word"></i> Xuất biên nhận </asp:LinkButton>
-
                     <asp:LinkButton ID="btnBoQua" runat="server" CssClass="btn btn-md btn-default btn-flat text-primary tool-left" CausesValidation="false" OnClick="btnBoQua_Click"><i class='icofont-undo' ></i> Trở về</asp:LinkButton>
                 </div>
             </section>
@@ -557,7 +556,7 @@
                                             <div class="col-lg-6 text-right">
                                                 <h1><b>
                                                     <asp:Label runat="server" ID="lblSTT" CssClass="text-primary"> </asp:Label></b></h1>
-                                                <%--<h6><asp:Label runat="server" ID="lblNgayTiepDan" CssClass="text-primary"> </asp:Label></h6>--%>
+                                           <%--     <h6><asp:Label runat="server" ID="lblNgayTiepDan" CssClass="text-primary"> </asp:Label></h6>--%>
                                             </div>
                                         </div>
 
@@ -763,7 +762,7 @@
                                                         <div class="form-group row">
                                                             <label for="inputPhone" class="col-lg-3 col-form-label">CMTND/ Thẻ căn cước</label>
                                                             <div class="col-lg-9">
-                                                                <asp:TextBox ID="txtCMND" runat="server" CssClass="form-control " MaxLength="500" Text='<%# Eval("CANHAN_CMDN")!=null?Eval("CANHAN_CMDN").ToString():""  %>' />
+                                                                <asp:TextBox ID="txtCMND" runat="server" CssClass="form-control " data-mask  data-inputmask="'mask':'[9][9][9][9][9][9][9][9][9][9][9][9]'" inputmode="numeric" MaxLength="500" Text='<%# Eval("CANHAN_CMDN")!=null?Eval("CANHAN_CMDN").ToString():""  %>' />
                                                             </div>
                                                         </div>
                                                     </div>

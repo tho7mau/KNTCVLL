@@ -159,6 +159,8 @@ namespace KNTC
             if (ValidateForm() == true)
             {
                 CapNhat(vDonThuId);
+                btn_ThemNguoiDaiDien.Visible = false;
+                textSoNguoiDaiDien.Enabled = false;
             }
         }
 
@@ -694,10 +696,10 @@ namespace KNTC
                 {
                     btn_XuatBienNhan.Visible = false;
                     btnSua.Visible = false;
+                    buttonThemmoi.Visible = false;
                     btnNhanBan.Visible = false;
                     btnGiaiQuyetDon.Visible = false;
                     btnCapNhat.Visible = true;
-                    buttonThemmoi.Visible = false;
                     btn_XuatPhieu.Visible = false;
                     List<CANHAN> cANHANs = new List<CANHAN>();
                     CANHAN cANHAN = new CANHAN();
@@ -752,7 +754,7 @@ namespace KNTC
                             Session["NhieuNoiDung" + _currentUser.UserID] = objDonThu_NhieuNoiDung;
                         }
                         // end
-
+                        textSoNguoiDaiDien.Text = vDonThuInfo.DOITUONG.DOITUONG_SONGUOIDAIDIEN.ToString() ?? "0";
                         ddlistNguon.SelectedValue = vDonThuInfo.NGUONDON_LOAI_CHITIET.ToString() ?? "0";
                         textNgayNhanDon.Text = DateTime.Parse(vDonThuInfo.NGAYTAO.ToString()).ToString("dd/MM/yyyy");
                         textNgayDeDon.Text = DateTime.Parse(vDonThuInfo.NGUONDON_NGAYDEDON.ToString()).ToString("dd/MM/yyyy");
@@ -769,8 +771,10 @@ namespace KNTC
                             divCoQuanChuyenDon.Visible = false;
                         }
 
-                        ddlistDoiTuong.SelectedValue = vDonThuInfo.DOITUONG_ID.ToString() ?? "0";
-                        textSoNguoi.Text = vDonThuInfo.DOITUONG.CANHANs.Count().ToString();
+                        ddlistDoiTuong.SelectedValue = vDonThuInfo.DOITUONG.DOITUONG_LOAI.ToString() ?? "0";
+
+                        textSoNguoi.Text = vDonThuInfo.DOITUONG.DOITUONG_SONGUOI.ToString();
+                        ChonDoiTuong(ddlistDoiTuong, null);
                         //Load đơn thư không đủ điều kiện
                         if (vDonThuInfo.TRANGTHAI_DONTHUKHONGDUDIEUKIEN ?? false)
                         {
@@ -820,7 +824,6 @@ namespace KNTC
 
                         textNgayNhanDon.Text = DateTime.Parse(vDonThuInfo.NGAYTAO.ToString()).ToString("dd/MM/yyyy");
                         ddlistNguon.SelectedValue = vDonThuInfo.NGUONDON_LOAI_CHITIET.ToString() ?? "0";
-                        textSoNguoi.Text = "1";
                         TitleBreadcrumb = "";
                         lblSTT.Text = (vDonThuInfo.DONTHU_STT) + "";
 
@@ -2158,55 +2161,65 @@ namespace KNTC
         {
             try
             {
-                List<CANHAN> cANHANs = new List<CANHAN>();
-                foreach (var item in ListViewDoiTuong.Items)
+                int songuoiDD = Convert.ToInt32(textSoNguoiDaiDien.Text);
+                int songuoi = Convert.ToInt32(textSoNguoi.Text);
+                if ( songuoiDD >= songuoi )
                 {
-                    CANHAN cANHAN = new CANHAN();
-                    cANHAN = GetThongTinCaNhan(item);
-                    cANHANs.Add(cANHAN);
-                }
-
-                CANHAN objCANHANAppend = new CANHAN();
-                long MinID = cANHANs.Min(x => x.CANHAN_ID);
-                if (MinID > 0)
-                {
-                    objCANHANAppend.CANHAN_ID = -1;
+                    ClassCommon.ShowToastr(Page, "Không thể thêm người đại diện khi số người nhỏ hơn hoặc bằng số người đại diện", "Thông báo", "error");
                 }
                 else
                 {
-                    objCANHANAppend.CANHAN_ID = MinID - 1;
-                }
-                objCANHANAppend.DP_ID = ClassParameter.vDiaPhuongDefault;
-                objCANHANAppend.QUOCTICH_ID = ClassParameter.vQuocTichDefault;
-                objCANHANAppend.DANTOC_ID = ClassParameter.vDanTocDefault;
-
-                objCANHANAppend.CANHAN_GIOITINH = false;
-                cANHANs.Add(objCANHANAppend);
-
-
-                ListViewDoiTuong.DataSource = cANHANs;
-                ListViewDoiTuong.DataBind();
-
-                for (int i = 0; i < cANHANs.Count(); i++)
-                {
-                    ListViewDataItem listViewDataItem = ListViewDoiTuong.Items[i];
-                    TextBox txtCaNhanID = ((TextBox)ListViewDoiTuong.Items[i].FindControl("txtCaNhanID"));
-                    if (txtCaNhanID.Text != "")
+                    List<CANHAN> cANHANs = new List<CANHAN>();
+                    foreach (var item in ListViewDoiTuong.Items)
                     {
-                        int vCANHAN_ID = Int32.Parse(txtCaNhanID.Text);
+                        CANHAN cANHAN = new CANHAN();
+                        cANHAN = GetThongTinCaNhan(item);
+                        cANHANs.Add(cANHAN);
+                    }
 
-                        DropDownList pDropDownListXa = ((DropDownList)ListViewDoiTuong.Items[i].FindControl("drlXa"));
-                        DropDownList pDropDownListHuyen = ((DropDownList)listViewDataItem.FindControl("drlQuanHuyen"));
-                        DropDownList pDropDownListThanhpho = ((DropDownList)listViewDataItem.FindControl("drlTinhThanhPho"));
+                    CANHAN objCANHANAppend = new CANHAN();
+                    long MinID = cANHANs.Min(x => x.CANHAN_ID);
+                    if (MinID > 0)
+                    {
+                        objCANHANAppend.CANHAN_ID = -1;
+                    }
+                    else
+                    {
+                        objCANHANAppend.CANHAN_ID = MinID - 1;
+                    }
+                    objCANHANAppend.DP_ID = ClassParameter.vDiaPhuongDefault;
+                    objCANHANAppend.QUOCTICH_ID = ClassParameter.vQuocTichDefault;
+                    objCANHANAppend.DANTOC_ID = ClassParameter.vDanTocDefault;
 
-                        DropDownList drlQuocTich = ((DropDownList)listViewDataItem.FindControl("drlQuocTich"));
-                        DropDownList drlDanToc = ((DropDownList)listViewDataItem.FindControl("drlDanToc"));
+                    objCANHANAppend.CANHAN_GIOITINH = false;
+                    cANHANs.Add(objCANHANAppend);
 
-                        LoadDiaPhuong((int)cANHANs[i].DP_ID, pDropDownListXa, pDropDownListHuyen, pDropDownListThanhpho);
-                        LoadDanToc((int)cANHANs[i].DANTOC_ID, drlDanToc);
-                        LoadQuocTich((int)cANHANs[i].QUOCTICH_ID, drlQuocTich);
+
+                    ListViewDoiTuong.DataSource = cANHANs;
+                    ListViewDoiTuong.DataBind();
+
+                    for (int i = 0; i < cANHANs.Count(); i++)
+                    {
+                        ListViewDataItem listViewDataItem = ListViewDoiTuong.Items[i];
+                        TextBox txtCaNhanID = ((TextBox)ListViewDoiTuong.Items[i].FindControl("txtCaNhanID"));
+                        if (txtCaNhanID.Text != "")
+                        {
+                            int vCANHAN_ID = Int32.Parse(txtCaNhanID.Text);
+
+                            DropDownList pDropDownListXa = ((DropDownList)ListViewDoiTuong.Items[i].FindControl("drlXa"));
+                            DropDownList pDropDownListHuyen = ((DropDownList)listViewDataItem.FindControl("drlQuanHuyen"));
+                            DropDownList pDropDownListThanhpho = ((DropDownList)listViewDataItem.FindControl("drlTinhThanhPho"));
+
+                            DropDownList drlQuocTich = ((DropDownList)listViewDataItem.FindControl("drlQuocTich"));
+                            DropDownList drlDanToc = ((DropDownList)listViewDataItem.FindControl("drlDanToc"));
+
+                            LoadDiaPhuong((int)cANHANs[i].DP_ID, pDropDownListXa, pDropDownListHuyen, pDropDownListThanhpho);
+                            LoadDanToc((int)cANHANs[i].DANTOC_ID, drlDanToc);
+                            LoadQuocTich((int)cANHANs[i].QUOCTICH_ID, drlQuocTich);
+                        }
                     }
                 }
+
             }
             catch (Exception Ex)
             {
@@ -2234,7 +2247,8 @@ namespace KNTC
             objCANHAN.CANHAN_ID = Int32.Parse(txtCaNhanID.Text);
             objCANHAN.CANHAN_HOTEN = txtHoTen.Text;
             //objCANHAN.lan = Int32.Parse(txtLanTiep.Text);
-            objCANHAN.CANHAN_CMDN = txtCMND.Text;
+             objCANHAN.CANHAN_CMDN = txtCMND.Text;
+
             if (txtNgayCap.Text != "")
             {
                 objCANHAN.CANHAN_CMDN_NGAYCAP = DateTime.Parse(txtNgayCap.Text);
@@ -2651,7 +2665,7 @@ namespace KNTC
                 {
                     divDoiTuong.Visible = false;
                 }
-                if (ddlistDoiTuong.SelectedValue == "1")
+                if (ddlistDoiTuong.SelectedValue == "2")
                 {
                     textSoNguoi.Enabled = true;
                     textSoNguoiDaiDien.Enabled = false;
