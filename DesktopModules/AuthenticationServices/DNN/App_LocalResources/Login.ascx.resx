@@ -112,21 +112,19 @@
     <value>2.0</value>
   </resheader>
   <resheader name="reader">
-    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <resheader name="writer">
-    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="cmdLogin.Text" xml:space="preserve">
     <value>Login</value>
-    <comment>Đăng nhập</comment>
   </data>
   <data name="Title.Text" xml:space="preserve">
     <value>Standard</value>
   </data>
   <data name="InvalidVerificationCode.Text" xml:space="preserve">
     <value>Invalid verification code.</value>
-    <comment>Ghi nhớ đăng nhập</comment>
   </data>
   <data name="UserAlreadyVerified.Text" xml:space="preserve">
     <value>User already verified.</value>
@@ -144,12 +142,6 @@
     <value>Register</value>
   </data>
   <data name="Remember.Text" xml:space="preserve">
-    <value>Ghi nhớ đăng nhập</value>
-  </data>
-  <data name="Password.Text" xml:space="preserve">
-    <value>Mật khẩu</value>
-  </data>
-  <data name="Username.Text" xml:space="preserve">
-    <value>Tên người dùng</value>
+    <value>Remember Login</value>
   </data>
 </root>
