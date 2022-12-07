@@ -71,9 +71,9 @@
                 </div>
                 <!-- /.container-fluid -->
                 <div class="form-tools">
+                    <asp:LinkButton ID="btnSua" Visible="true" OnClick="btnSua_Click" CausesValidation="true" runat="server" CssClass="btn  bg-gradient-primary btn-flat tool-left"><i class="icofont-ui-edit"></i>  Sửa</asp:LinkButton>
                     <asp:LinkButton ID="buttonThemmoi" runat="server" OnClick="buttonThemmoi_Click" CssClass="btn  bg-gradient-primary btn-flat tool-left"><i class="icofont-plus"></i>  Thêm</asp:LinkButton>
                     <asp:LinkButton ID="btnCapNhat" OnClick="btnCapNhat_Click" Visible="false" runat="server" CausesValidation="false" CssClass="btn  bg-gradient-primary btn-flat tool-left"><i class="icofont-save"></i> Lưu</asp:LinkButton>
-                    <asp:LinkButton ID="btnSua" Visible="true" OnClick="btnSua_Click" CausesValidation="true" runat="server" CssClass="btn  bg-gradient-primary btn-flat tool-left"><i class="icofont-ui-edit"></i>  Sửa</asp:LinkButton>
                     <asp:LinkButton ID="btnBoQua" runat="server" CssClass="btn btn-md btn-default btn-flat text-primary tool-left" CausesValidation="false" OnClick="btnBoQua_Click"><i class='icofont-undo' ></i> Trở về</asp:LinkButton>
                 </div>
             </section>
@@ -245,7 +245,7 @@
                                                         <div class="form-group row">
                                                             <label for="inputPhone" class="col-lg-3 col-form-label">CMTND/ Thẻ căn cước</label>
                                                             <div class="col-lg-9">
-                                                                <asp:TextBox ID="txtCMND" runat="server" CssClass="form-control " MaxLength="500" Text='<%# Eval("CANHAN_CMDN")!=null?Eval("CANHAN_CMDN").ToString():""  %>' />
+                                                                <asp:TextBox ID="txtCMND" runat="server" CssClass="form-control" data-mask  data-inputmask="'mask':'[9][9][9][9][9][9][9][9][9][9][9][9]'" inputmode="numeric" MaxLength="500" Text='<%# Eval("CANHAN_CMDN")!=null?Eval("CANHAN_CMDN").ToString():""  %>' />
 
                                                             </div>
                                                         </div>
